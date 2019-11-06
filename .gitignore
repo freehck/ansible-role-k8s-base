@@ -1,0 +1,7 @@
+*~
+vagrant/.vagrant
+vagrant/retry
+vagrant/roles/freehck.add_repo
+vagrant/roles/freehck.disable_swap
+vagrant/roles/freehck.pkg_install
+**/*.log

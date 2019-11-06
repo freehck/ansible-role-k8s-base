@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+    - debug:
+        msg: "master.yml"
+  roles:
+    - role: freehck.k8s_base

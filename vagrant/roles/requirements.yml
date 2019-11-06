@@ -1,0 +1,3 @@
+- src: freehck.disable_swap
+- src: freehck.pkg_install
+- src: freehck.add_repo
