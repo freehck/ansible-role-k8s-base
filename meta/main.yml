@@ -5,7 +5,7 @@ galaxy_info:
   role_name: k8s_base
   license: MIT
 
-  min_ansible_version: 2.4
+  min_ansible_version: 2.7
 
   platforms:
     - name: Ubuntu
@@ -42,6 +42,6 @@ dependencies:
         - docker-ce
         - docker-ce-cli
         - containerd.io
-        - kubelet
-        - kubeadm
-        - kubectl
+        - kubelet={{ k8s_base_ver }}
+        - kubeadm={{ k8s_base_ver }}
+        - kubectl={{ k8s_base_ver }}

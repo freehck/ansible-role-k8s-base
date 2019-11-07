@@ -2,47 +2,20 @@
 
 # fool protection
 
-- name: hold k8s binaries version
+- name: hold k8s binaries versions
   command: apt-mark hold kubelet kubeadm kubectl
   changed_when: false
 
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-- name: Configure node ip
+- name: configure node ip
   lineinfile:
     path: /etc/default/kubelet
     line: KUBELET_EXTRA_ARGS=--node-ip={{ k8s_base_node_ip }}
     create: yes
 
-- name: Restart kubelet
+- name: restart kubelet
   service:
     name: kubelet
     daemon_reload: yes
     state: restarted
-
-# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm
-
-- name: initialize k8s cluster with kubeadm
-  command: kubeadm init --apiserver-advertise-address={{ k8s_base_node_ip }} --apiserver-cert-extra-sans={{ k8s_base_node_ip }} --node-name {{ k8s_base_node_name }} --pod-network-cidr={{ k8s_base_cidr }}
-  args:
-    creates: /etc/kubernetes/admin.conf
-
-- name: configure superuser to run kubectl
-  lineinfile:
-    path: "/root/.bashrc"
-    line: "export KUBECONFIG=/etc/kubernetes/admin.conf"
-    state: present
-
-### !!! We need CNI before this
-## save join command
-#
-#- name: generate join command
-#  command: kubeadm token create --print-join-command
-#  creates: "{{ k8s_base_join_command_filename }}"
-#  delegate_to: localhost
-#
-#- name: save join command to local file
-#  copy:
-#    content: "{{ join_command.stdout_lines[0] }}"
-#    dest: "{{ k8s_base_join_command_filename }}"
-#  delegate_to: localhost
