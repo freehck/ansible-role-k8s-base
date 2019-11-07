@@ -19,3 +19,4 @@
     name: kubelet
     daemon_reload: true
     state: restarted
+  when: not ( molecule_test | default('false') )
