@@ -12,10 +12,10 @@
   lineinfile:
     path: /etc/default/kubelet
     line: KUBELET_EXTRA_ARGS=--node-ip={{ k8s_base_node_ip }}
-    create: yes
+    create: true
 
 - name: restart kubelet
   service:
     name: kubelet
-    daemon_reload: yes
+    daemon_reload: true
     state: restarted

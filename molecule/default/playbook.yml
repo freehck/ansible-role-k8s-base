@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    k8s_base_node_ip: "{{ ansible_host }}"
+    k8s_base_ver: "1.16.2-00"
+  roles:
+    - role: freehck.k8s_base
